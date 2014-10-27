@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2014-10-24 18:25:36
+Date: 2014-10-27 18:34:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `int_admin_user` (
 -- ----------------------------
 -- Records of int_admin_user
 -- ----------------------------
-INSERT INTO `int_admin_user` VALUES ('1', 'admin', '4e96157c3c8c24f4761a7bc4411a2504', 'admin', 'admin@admin.com', '0', '1414114197', '1', '系统管理员，勿删！', '1');
+INSERT INTO `int_admin_user` VALUES ('1', 'admin', '4e96157c3c8c24f4761a7bc4411a2504', 'admin', 'admin@admin.com', '0', '1414395131', '1', '系统管理员，勿删！', '1');
 
 -- ----------------------------
 -- Table structure for int_case
@@ -110,7 +110,6 @@ CREATE TABLE `int_contact` (
   `address` text NOT NULL COMMENT '联系地址',
   `phone` varchar(30) NOT NULL COMMENT '联系电话',
   `contact` varchar(30) NOT NULL COMMENT '联系人',
-  `map` varchar(255) NOT NULL COMMENT '地图',
   `description` text NOT NULL COMMENT '公司简介',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='联系方式表';
@@ -118,7 +117,7 @@ CREATE TABLE `int_contact` (
 -- ----------------------------
 -- Records of int_contact
 -- ----------------------------
-INSERT INTO `int_contact` VALUES ('1', '广州英趣信息科技有限公司', '广州市天河区棠安路288-299号天盈建博汇2054', '020-29869409', '黄先生', '/uploads/2014/09/22/44eaeb6e6bda1ebf0eb3adaac9f92ec9e3d25d83.jpeg', '<p><span style=\"font-size:14px\">英趣信息科技有限公司致力于移动互联网、移动物联网应用的开发，以专业的技术、负责任的态度，为客户提供优质移动服务。</span></p>\n\n<p>&nbsp;</p>\n\n<p><span style=\"font-size:14px\">英趣科技在移动应用开发方面有着丰富的经验。擅长iOS、Android移动平台APP开发。为合作伙伴提供专业一体化移动应用解决方案服务。 公司秉承客户体验的细节要求，为客户提供优质的移动互联网服务，其中包括高质量的代码、体验良好的APP、APP发布及推广。</span></p>');
+INSERT INTO `int_contact` VALUES ('1', '广州英趣信息科技有限公司', '广州市天河区天河北路615号鸿翔大厦1404', '020-29869409', '黄先生', '<p><span style=\"font-size:14px\">英趣信息科技有限公司致力于移动互联网、移动物联网应用的开发，以专业的技术、负责任的态度，为客户提供优质移动服务。</span></p>\n\n<p>&nbsp;</p>\n\n<p><span style=\"font-size:14px\">英趣科技在移动应用开发方面有着丰富的经验。擅长iOS、Android移动平台APP开发。为合作伙伴提供专业一体化移动应用解决方案服务。 公司秉承客户体验的细节要求，为客户提供优质的移动互联网服务，其中包括高质量的代码、体验良好的APP、APP发布及推广。</span></p>');
 
 -- ----------------------------
 -- Table structure for int_cooperation
@@ -208,7 +207,7 @@ CREATE TABLE `int_news_category` (
   `add_time` int(10) NOT NULL COMMENT '添加时间',
   `update_time` int(10) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='资讯分类表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资讯分类表';
 
 -- ----------------------------
 -- Records of int_news_category
