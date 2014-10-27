@@ -10,34 +10,6 @@
 class ContactAction extends AdminAction {
 
     /**
-     * 删除图片
-     */
-    public function delete_image() {
-        if ($this->isAjax()) {
-            $filename = isset($_POST['filename']) ? $_SERVER['DOCUMENT_ROOT'] . $_POST['filename'] : $this->redirect('/');
-            if (file_exists($filename)) {
-                if (unlink($filename)) {
-                    $this->ajaxReturn(array(
-                        'status' => true
-                    ));
-                } else {
-                    $this->ajaxReturn(array(
-                        'status' => false,
-                        'msg' => '删除图片失败'
-                    ));
-                }
-            } else {
-                $this->ajaxReturn(array(
-                    'status' => false,
-                    'msg' => '图片已经删除'
-                ));
-            }
-        } else {
-            $this->redirect('/');
-        }
-    }
-
-    /**
      * 联系方式
      */
     public function index() {
@@ -51,7 +23,6 @@ class ContactAction extends AdminAction {
             $phone = isset($_POST['phone']) ? trim($_POST['phone']) : $this->redirect('/');
             $address = isset($_POST['address']) ? trim($_POST['address']) : $this->redirect('/');
             $description = isset($_POST['description']) ? trim($_POST['description']) : $this->redirect('/');
-            $map = isset($_POST['map']) ? trim($_POST['map']) : $this->redirect('/');
             if (M('Contact')->count()) {
                 if (M('Contact')->where(array(
                     'id' => $max_id
@@ -60,8 +31,7 @@ class ContactAction extends AdminAction {
                     'contact' => $contact,
                     'phone' => $phone,
                     'address' => $address,
-                    'description' => $description,
-                    'map' => $map
+                    'description' => $description
                 ))) {
                     $this->ajaxReturn(array(
                         'status' => true,
@@ -79,8 +49,7 @@ class ContactAction extends AdminAction {
                     'contact' => $contact,
                     'phone' => $phone,
                     'address' => $address,
-                    'description' => $description,
-                    'map' => $map
+                    'description' => $description
                 ))) {
                     $this->ajaxReturn(array(
                         'status' => true,
@@ -94,23 +63,8 @@ class ContactAction extends AdminAction {
                 }
             }
         } else {
-            $contact = M('Contact')->find();
-            if ($contact) {
-                $contact['src'] = "http://{$_SERVER['HTTP_HOST']}{$contact['map']}";
-            }
-            $this->assign('contact', $contact);
+            $this->assign('contact', M('Contact')->order("id DESC")->find());
             $this->display();
-        }
-    }
-
-    /**
-     * 上传地图
-     */
-    public function upload() {
-        if (!empty($_FILES)) {
-            $this->ajaxReturn(upload($_FILES, C('MAX_SIZE'), C('ALLOW_EXTENSIONS')));
-        } else {
-            $this->redirect('/');
         }
     }
 

@@ -23,7 +23,7 @@
 .p_about{ width:435px; margin:0 auto; padding-top:300px;padding-bottom:30px; border-bottom:1px dashed #ddd;}
 .p_about h3,.p_tel h3{ font-size:16px; height:30px;margin-bottom:10px; font-weight:500; color:#F90;}
 .p_about p,.p_tel p{ line-height:30px; font-size:12px;}
-.p_tel{ width:435px; margin:0 auto;padding-top:30px;padding-bottom:50px}
+.p_tel{ width:435px; margin:0 auto;padding-top:30px;padding-bottom:16px}
 /*news*/
 #news_banner{ background:#ffcc00; border:1px solid #000;}
 .news_img{width:980px; height:142px; margin:0 auto;}
