@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title><{$detail['title']}> | 广州英趣信息科技有限公司</title>
+        <meta name="description" content="<{$detail['content']|strip_tags|msubstr=0, 60, 'utf-8', false}>" />
+        <if condition="$detail['keywords']">
+        <meta name="keywords" content="<{$detail['keywords']}>" />
+        </if>
+        <link href="__PUBLIC__/css/home/default/style.css" rel="stylesheet" type="text/css">
+        <link href="__PUBLIC__/css/home/default/page.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body data-spy="scroll" class="home">
+    <!--head start-->
+    <include file="./Public/html/home/default/nav.html" />
+    <!--head end-->
+    <!--banner start-->
+    <div id="news_banner">
+        <div class="news_img"><img src="__PUBLIC__/images/home/default/news.jpg" width="980" height="142"></div>
+        <div class="news_nav">
+            <ul>
+                <volist name="category" id="val" key="key">
+                <li <if condition="$val['id'] eq $detail['category_id']">class="n_sel"</if>><a href="<{:U('news/index?category=' . $val['id'])}>"><{$val['name']}></a></li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <!--banner end-->
+    <!--coopmain start-->
+    <div id="main">
+        <div class="n_main">
+            <div class="n_list">
+                <h2><{$detail['title']}></h2>
+                <div class="n_list_detail">
+                    <if condition="$detail['image']">
+                    <p><img src="<{$detail['image']}>" width="429" height="281" /></p>
+                    </if>
+                    <h3><{$detail['title']}></h3>
+                    <span><{$detail['add_time']|date="Y-m-d", ###}></span>
+                    <{$detail['content']}>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--coopmain end-->
+    <!--foot start-->
+    <include file="./Public/html/home/default/footer.html" />
+    <!--foot end-->
+    </body>
+</html>

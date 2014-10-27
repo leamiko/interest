@@ -1,0 +1,21 @@
+<div id="head">
+    <div class="head">
+        <div class="logo l_fr"><a href="<{$navigation[0]['url']}>"><img src="__PUBLIC__/images/home/default/logo.png" width="324" height="128"></a></div>
+        <div class="nav l_fr">
+            <ul>
+                <volist name="navigation" id="val" key="key">
+                <li><a href="<{$val['url']}>"<if condition="$key eq $highline"> class="li_sel"</if>><{$val['name']}></a></li>
+                </volist>
+            </ul>
+        </div>
+        <div class="laug l_fr">
+            <a href="javascript:void(0);" onclick="change_language('zh-cn')">中文</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:void(0);" onclick="change_language('en-us')">Eng</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function change_language(lang) {
+    document.cookie = "think_language=" + lang;
+    window.location.reload(true);
+}
+</script>

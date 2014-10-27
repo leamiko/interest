@@ -1,0 +1,164 @@
+<include file="./Public/html/header.html" />
+<div id="main">
+    <div id="main-cnt">
+        <div id="contentH" class="cnt-box wall" style="padding-left: 0px;">
+            <div class="title clearfix">
+                <div class="l title-cnt">
+                    <span class="icon icon8"></span>TDK管理
+                </div>
+            </div>
+        </div>
+
+        <div class="top_4">
+            <input class="btn btn-primary" type="button" value="添加TDK" onclick="javascript:add();">&nbsp;&nbsp;
+            <input class="btn btn-primary" type="button" value="删除TDK" onclick="javascript:del();">
+        </div>
+        <div>
+            <div id="maingrid4" style="margin: 0px auto; padding: 0px;"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var grid;
+$(function(){
+    grid = $("#maingrid4").ligerGrid({
+        columns: [
+            {display: "页面", name: 'page', align: 'center', width: '12%', isSort: false, render: function(rowdata, rowindex, value) {
+                    switch (parseInt(value)) {
+                        case 1 :
+                            return '网站首页';
+                        case 2 :
+                            return '服务中心';
+                        case 3 :
+                            return '案例中心';
+                        case 4 :
+                            return '最新资讯';
+                        case 5 :
+                            return '申请合作';
+                        case 6 :
+                            return '关于我们';
+                    }
+                }
+            },
+            {display: "标题", name: 'title', align: 'center', width: '16%', isSort: false},
+            {display: "描述", name: 'description', align: 'center', width: '20%', isSort: false},
+            {display: "关键词", name: 'keywords', align: 'center', width: '16%', isSort: false},
+            {display: "添加时间", name: 'add_time', align: 'center', width: '12%'},
+            {display: "更新时间", name: 'update_time', align: 'center', width: '12%', render: function(rowdata, rowindex, value) {
+                    return value ? value : '从未更新';
+                }
+            },
+            {display: "操作", align: 'center', width: '6%', isSort: false, render: function (rowdata, rowindex, value) {
+                    return '<a href="javascript:void(0);" onclick="update(' + rowdata.id + ')">编辑</a>';
+                }
+            },
+            ],
+            url: '<{:U("setting/tdk")}>',
+            dataAction: 'server',
+            method: 'get',
+            width: '100%',
+            checkbox: true,
+            frozenCheckbox: false,
+            selectRowButtonOnly: true,
+            pageSize:20,
+            pageSizeOptions: [20, 50, 100, 200, 500],
+            onAfterShowData:f_change,
+            onAfterChangeColumnWidth:f_change,
+            detail: {onShowDetail: f_onShowDetail, height: 'auto'}
+    });
+    $("#pageloading").hide();
+});
+
+//明细
+function f_onShowDetail(record, container, callback) {
+    var out = ['<table align="center" border="1" style="margin:10px;width:90%;font-size:14px;">'];
+    out.push("<tr><td width='20%' align='right'>页面：&nbsp;&nbsp;</td><td>&nbsp;&nbsp;" + record.page + "</td></tr>");
+    out.push("<tr><td width='20%' align='right'>标题：&nbsp;&nbsp;</td><td>&nbsp;&nbsp;" + record.title + "</td></tr>");
+    out.push("<tr><td width='20%' align='right'>描述：&nbsp;&nbsp;</td><td>&nbsp;&nbsp;" + record.description + "</td></tr>");
+    out.push("<tr><td width='20%' align='right'>关键词：&nbsp;&nbsp;</td><td>&nbsp;&nbsp;" + record.keywords + "</td></tr>");
+    out.push("<tr><td width='20%' align='right'>添加时间：&nbsp;&nbsp;</td><td>&nbsp;&nbsp;" + record.add_time + "</td></tr>");
+    out.push("<tr><td width='20%' align='right'>更新时间：&nbsp;&nbsp;</td><td>&nbsp;&nbsp;" + (record.update_time ? record.update_time : '暂无') + "</td></tr>");
+    out.push("</table>");
+    $(container).html(out.join(''));
+}
+
+//添加TDK
+var addTDKDialog;
+function add() {
+    addTDKDialog = $.ligerDialog.open({
+        url: '<{:U("setting/add_tdk")}>', height: 400, width: 800,
+        isDrag: false, title: '添加TDK',
+        buttons: [{text: '确定', onclick: function(item, dialog) {addTDKDialog.frame.addTDKFormSubmit();}},
+                  {text: '取消', onclick: function(item, dialog) {dialog.close()}}]
+    });
+}
+
+//添加TDK回调
+function addTDKCallback(obj) {
+    addTDKDialog.close();
+    if (obj.status) {
+        $.ligerDialog.alert(obj.msg, '成功了(^_^)', 'success');
+        location.reload(true);
+    } else {
+        $.ligerDialog.alert(obj.msg, '出错了(>_<)', 'error');
+        return false;
+    }
+}
+
+//删除TDK
+function del() {
+    var data = getCheckedData('id');
+    if (data.length <= 0) {
+        $.ligerDialog.alert('请至少选中一个TDK', '温馨提示', 'warn');
+        return false;
+    }
+    var id = '';
+    for (var i = 0; i < data.length; i++) {
+        if (i == data.length - 1) {
+            id += data[i];
+        } else {
+            id += data[i]+',';
+        }
+    }
+    $.ligerDialog.confirm('您确定要删除选中的TDK吗？', function(yes) {
+        if (yes) {
+            $.post('<{:U("setting/delete_tdk")}>', {id: id}, function(data) {
+                if (data.status) {
+                    $.ligerDialog.alert(data.msg, '成功了(^_^)', 'success');
+                    location.reload(true);
+                } else {
+                    $.ligerDialog.alert(data.msg, '出错了(>_<)', 'error');
+                    return false;
+                }
+            }, 'json');
+        }
+    });
+}
+
+//编辑TDK
+var updateTDKDialog;
+function update(id) {
+    updateTDKDialog = $.ligerDialog.open({
+        url: '<{:U("setting/update_tdk")}>?id=' + id, height: 400, width: 800,
+        isDrag: false, title: '编辑TDK',
+        buttons: [{text: '确定', onclick: function(item, dialog) {updateTDKDialog.frame.updateTDKFormSubmit();}},
+                  {text: '取消', onclick: function(item, dialog) {dialog.close()}}]
+    });
+}
+
+//编辑TDK回调
+function updateTDKCallback(obj) {
+    updateTDKDialog.close();
+    if (obj.status) {
+        $.ligerDialog.alert(obj.msg, '成功了(^_^)', 'success');
+        location.reload(true);
+    } else {
+        $.ligerDialog.alert(obj.msg, '出错了(>_<)', 'error');
+        return false;
+    }
+}
+//]]>
+</script>
+<include file="./Public/html/footer.html" />

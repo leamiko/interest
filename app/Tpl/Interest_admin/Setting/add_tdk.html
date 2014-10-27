@@ -1,0 +1,170 @@
+<include file="./Public/html/header.html" />
+<style type="text/css">
+<!--
+body{font-size:12px;}.l-table-edit-td{padding:10px 20px;}.l-table-edit-td input{width:130px;}.l-button-submit,.l-button-test{width:80px;float:left;margin-left:10px;padding-bottom:2px;}.l-verify-tip{left:230px;top:120px;}.l-table-edit tr td span{color:#f30;padding-left:5px;}.tipmsg{color:#f30;}
+-->
+</style>
+<table cellpadding="0" cellspacing="0" class="l-table-edit">
+    <tr>
+        <td align="right" class="l-table-edit-td">
+            <span>*</span>页面：
+        </td>
+        <td align="left" class="l-table-edit-td">
+            <select id="page">
+                <option value="0">--请选择--</option>
+                <option value="1">网站首页</option>
+                <option value="2">服务中心</option>
+                <option value="3">案例中心</option>
+                <option value="4">最新资讯</option>
+                <option value="5">申请合作</option>
+                <option value="6">关于我们</option>
+            </select>
+        </td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td">
+            <span>*</span>标题：
+        </td>
+        <td align="left" class="l-table-edit-td">
+            <input type="text" id="title" />
+        </td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td">
+            <span>*</span>简介：
+        </td>
+        <td align="left" class="l-table-edit-td">
+            <textarea id="description" style="resize: none;height:80px;" onfocus="javascript:checkLength(this, 'desc_tip');" onkeydown="javascript:checkLength(this, 'desc_tip');" onkeyup="javascript:checkLength(this, 'desc_tip');" maxLength="60"></textarea>
+        </td>
+        <td align="left" class="tipmsg" id="desc_tip"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td">
+            <span>*</span>关键词：
+        </td>
+        <td align="left" class="l-table-edit-td">
+            <input type="text" id="keywords" />
+        </td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+$(function() {
+    $("#page").change(function() {
+        removeTip($(this).parent('td').next('td:last'));
+        ckPage();
+    });
+    $("#title").focus(function() {
+        addTip($(this).parent('td').next('td:last'), '标题不能超过30个中文字');
+    }).blur(function() {
+        removeTip($(this).parent('td').next('td:last'));
+        ckTitle();
+    });
+    $("#keywords").focus(function() {
+        addTip($(this).parent('td').next('td:last'), '每个关键词用中文逗号分隔开，不能超过30个中文字，如："苹果，安卓"');
+    }).blur(function() {
+        removeTip($(this).parent('td').next('td:last'));
+        ckKeywords();
+    });
+});
+
+//添加提示
+function addTip(my, tip) {
+    removeTip(my);
+    var tip1 = '<div class="tip_msg">';
+    var tip2 = '</div>';
+    my.append(tip1+tip+tip2);
+}
+
+//删除提示
+function removeTip(my) {
+    my.find(".tip_msg").remove();
+}
+
+//检测页面
+function ckPage() {
+    var page = $("#page").val();
+    if (page <= 0) {
+        addTip($("#page").parent('td').next('td:last'), '请选择页面');
+        return false;
+    }
+    return true;
+}
+
+//检测标题
+function ckTitle() {
+    var title = $.trim($("#title").val());
+    if (title.length <= 0) {
+        addTip($("#title").parent('td').next('td:last'), '标题不能为空');
+        return false;
+    }
+    if (title.length > 30) {
+        addTip($("#title").parent('td').next('td:last'), '标题不能超过30个中文字');
+        return false;
+    }
+    return true;
+}
+
+//检测简介长度
+function checkLength(obj, id) {
+    var maxLength = obj.maxLength;
+    var desc = obj.value;
+    if (desc.length <= maxLength) {
+        $("#"+id).html('还剩下'+ (maxLength - desc.length) + '个字');
+    }
+    obj.onblur = function() {
+        $("#"+id).empty();
+    }
+}
+
+//检测描述
+function ckDesc() {
+    var desc = $.trim($("#description").val());
+    if (desc.length <= 0) {
+        addTip($("#description").parent('td').next('td:last'), '描述不能为空');
+        return false;
+    }
+    return true;
+}
+
+//检测关键词
+function ckKeywords() {
+    var keywords = $.trim($("#keywords").val());
+    if (keywords.length <= 0) {
+        addTip($("#keywords").parent('td').next('td:last'), '关键词不能为空');
+        return false;
+    }
+    if (keywords.length > 30) {
+        addTip($("#keywords").parent('td').next('td:last'), '关键词不能超过30个中文字');
+        return false;
+    }
+    return true;
+}
+
+//检测表单
+function checkForm() {
+    if (!ckPage()) return false;
+    if (!ckTitle()) return false;
+    if (!ckDesc()) return false;
+    if (!ckKeywords()) return false;
+    var page = $("#page").val()
+    var title = $.trim($("#title").val());
+    var description = $.trim($("#description").val());
+    var keywords = $.trim($("#keywords").val());
+    return {page: page, title: title, description: description, keywords: keywords};
+}
+
+//提交表单
+function addTDKFormSubmit() {
+    if (checkForm()) {
+        $.post('<{:U("setting/add_tdk")}>', checkForm(), function(data) {
+            window.parent.addTDKCallback(data);
+        }, 'json');
+    }
+}
+//]]>
+</script>
+<include file="./Public/html/footer.html" />

@@ -1,0 +1,325 @@
+<include file="./Public/html/header.html" />
+<style type="text/css">
+<!--
+body{font-size:12px}.l-table-edit-td{padding:10px 20px}.l-table-edit-td input{width:130px}.l-button-submit,.l-button-test{width:80px;float:left;margin-left:10px;padding-bottom:2px}.l-verify-tip{left:230px;top:120px}.l-table-edit tr td span{color:#f30;padding-left:5px}.tipmsg{color:#f30}.tip_msg3{color:#fb072f}.image-preview{position:relative}.image-preview-outter{display:block}.image-preview-delete{display:block;position:absolute;top:0;left:144px;background:url(/Public/images/delete.png) no-repeat;background-color:#fff;width:16px;height:16px}@-webkit-keyframes progress-bar-stripes{from{background-position:40px 0}to{background-position:0 0}}@keyframes progress-bar-stripes{from{background-position:40px 0}to{background-position:0 0}}.progress{height:20px;margin-bottom:20px;overflow:hidden;background-color:#f5f5f5;border-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1)}.progress-bar{float:left;width:0;height:100%;font-size:12px;line-height:20px;color:#fff;text-align:center;background-color:#428bca;-webkit-box-shadow:inset 0 -1px 0 rgba(0,0,0,0.15);box-shadow:inset 0 -1px 0 rgba(0,0,0,0.15);-webkit-transition:width .6s ease;transition:width .6s ease}.progress-striped .progress-bar{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-size:40px 40px}.progress.active .progress-bar{-webkit-animation:progress-bar-stripes 2s linear infinite;animation:progress-bar-stripes 2s linear infinite}.progress-bar-success{background-color:#5cb85c}.progress-striped .progress-bar-success{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}.progress-bar-info{background-color:#5bc0de}.progress-striped .progress-bar-info{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}.progress-bar-warning{background-color:#f0ad4e}.progress-striped .progress-bar-warning{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}.progress-bar-danger{background-color:#d9534f}.progress-striped .progress-bar-danger{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}
+-->
+</style>
+<table cellpadding="0" cellspacing="0" class="l-table-edit">
+    <tr>
+        <td align="right" class="l-table-edit-td"><span>*</span>案例：</td>
+        <td align="left" class="l-table-edit-td"><input type="text" id="name" value="<{$case['name']}>" /></td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td"><span>*</span>项目类型：</td>
+        <td align="left" class="l-table-edit-td"><input type="text" id="type" value="<{$case['type']}>" /></td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td"><span>*</span>案例类型：</td>
+        <td align="left" class="l-table-edit-td">
+            <select id="case_type">
+                <option value="0">--请选择--</option>
+                <volist name="case_type" id="val">
+                <option value="<{$val['id']}>"<if condition="$val['id'] eq $case['case_type']"> selected</if>><{$val['name']}></option>
+                </volist>
+            </select>
+        </td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td"><span>*</span>精选案例：</td>
+        <td align="left" class="l-table-edit-td">
+            <select id="is_selected">
+                <option value="0"<if condition="0 eq $case['is_selected']"> selected</if>>否</option>
+                <option value="1"<if condition="1 eq $case['is_selected']"> selected</if>>是</option>
+            </select>
+        </td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td"><span>*</span>合作方：</td>
+        <td align="left" class="l-table-edit-td"><input type="text" id="cooperation" value="<{$case['cooperation']}>" /></td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td">功能：</td>
+        <td align="left" class="l-table-edit-td">
+            <textarea id="functions" style="resize: none;height:80px;"><{$case['functions']}></textarea>
+        </td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td">简介：</td>
+        <td align="left" class="l-table-edit-td">
+            <textarea id="description" style="resize: none;height:80px;"><{$case['description']}></textarea>
+        </td>
+        <td align="left" class="tipmsg"></td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td"><span>*</span>封面图片：</td>
+        <td align="left" class="l-table-edit-td">
+            <span class="btn btn-success fileinput-button" style="color:#fff;">
+                &nbsp;&nbsp;选择图片
+                <input id="fileupload_cover" type="file" name="files[]" />
+                <input id="cover" type="hidden" value="<{$case['cover']}>" />
+            </span>
+            <br>
+            <br>
+            <div id="cover_progress" class="progress" style="display:none;">
+                <div class="progress-bar progress-bar-success"></div>
+            </div>
+        </td>
+        <td align="left" class="tipmsg" id="cover_tip">
+            <div class="image-preview">
+                <a href="<{$case['cover_src']}>" target="_blank" title="点击查看原图" class="image-preview-outter">
+                    <img src="<{$case['cover_src']}>" width="160" height="90" border="0" />
+                </a>
+                <a href="javascript:void(0);" onclick="delete_image('<{$case['cover']}>', $('#cover_tip'), $('#cover'));" class="image-preview-delete" title="删除">
+                </a>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td align="right" class="l-table-edit-td"><span>*</span>简介图片：</td>
+        <td align="left" class="l-table-edit-td">
+            <span class="btn btn-success fileinput-button" style="color:#fff;">
+                &nbsp;&nbsp;选择图片
+                <input id="fileupload" type="file" name="files[]" />
+                <input id="image" type="hidden" value="<{$case['image']}>" />
+            </span>
+            <br>
+            <br>
+            <div id="progress" class="progress" style="display:none;">
+                <div class="progress-bar progress-bar-success"></div>
+            </div>
+        </td>
+        <td align="left" class="tipmsg" id="image_tip">
+            <div class="image-preview">
+                <a href="<{$case['src']}>" target="_blank" title="点击查看原图" class="image-preview-outter">
+                    <img src="<{$case['src']}>" width="160" height="90" border="0" />
+                </a>
+                <a href="javascript:void(0);" onclick="delete_image('<{$case['image']}>', $('#image_tip'), $('#image'));" class="image-preview-delete" title="删除">
+                </a>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+$(function() {
+    $("#name").blur(function() {
+        removeTip($(this).parent('td').next('td:last'));
+        ckName();
+    });
+    $("#type").focus(function() {
+        addTip($(this).parent('td').next('td:last'), '如：APP开发 IOS、Android');
+    }).blur(function() {
+        removeTip($(this).parent('td').next('td:last'));
+        ckType();
+    });
+    $("#case_type").change(function() {
+        removeTip($(this).parent('td').next('td:last'));
+        ckCaseType();
+    });
+    $("#cooperation").blur(function() {
+        removeTip($(this).parent('td').next('td:last'));
+        ckCooperation();
+    });
+    $("#functions").focus(function() {
+        addTip($(this).parent('td').next('td:last'), "每个功能之间用'|'分割，如：图片识别|音频识别");
+    }).blur(function() {
+        removeTip($(this).parent('td').next('td:last'));
+    });
+    $("#fileupload_cover").fileupload({
+        maxNumberOfFiles: 1,
+        acceptFileTypes: /(\.|\/)(jpe?g|png|bmp)$/i,
+        maxFileSize: 2097152,
+        minFileSize: 1,
+        url: '<{:U("case/upload_cover")}>',
+        dataType: 'json',
+        send: function (e, data) {
+            $("#progress").show();
+        },
+        done: function (e, data) {
+            if (data.result.status) {
+                $("#progress").hide();
+                $("#cover_tip").html("<div class='image-preview'>"+
+                                        "<a href='"+data.result.src+"' target='_blank' title='点击查看原图' class='image-preview-outter'>"+
+                                            "<img src='"+data.result.src+"' width='160' height='90' border='0' />"+
+                                        "</a>"+
+                                        "<a href='javascript:void(0);' onclick=\"delete_image(\'"+data.result.filename+"\', $('#cover_tip'), $('#cover'));\" class='image-preview-delete' title='删除'>"+
+                                        "</a>"+
+                                    "</div>");
+                $("#cover").val(data.result.filename);
+            } else {
+                $("#cover_tip").html(data.result.msg);
+            }
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#cover_progress .progress-bar').css('width', progress + '%');
+        }
+    });
+    $("#fileupload").fileupload({
+        maxNumberOfFiles: 1,
+        acceptFileTypes: /(\.|\/)(jpe?g|png|bmp)$/i,
+        maxFileSize: 2097152,
+        minFileSize: 1,
+        url: '<{:U("case/upload")}>',
+        dataType: 'json',
+        send: function (e, data) {
+            $("#progress").show();
+        },
+        done: function (e, data) {
+            if (data.result.status) {
+                $("#progress").hide();
+                $("#image_tip").html("<div class='image-preview'>"+
+                                        "<a href='"+data.result.src+"' target='_blank' title='点击查看原图' class='image-preview-outter'>"+
+                                            "<img src='"+data.result.src+"' width='160' height='90' border='0' />"+
+                                        "</a>"+
+                                        "<a href='javascript:void(0);' onclick=\"delete_image(\'"+data.result.filename+"\', $('#image_tip'), $('#image'));\" class='image-preview-delete' title='删除'>"+
+                                        "</a>"+
+                                    "</div>");
+                $("#image").val(data.result.filename);
+            } else {
+                $("#image_tip").html(data.result.msg);
+            }
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css('width', progress + '%');
+        }
+    });
+});
+
+//添加提示
+function addTip(my, tip) {
+    removeTip(my);
+    var tip1 = '<div class="tip_msg">';
+    var tip2 = '</div>';
+    my.append(tip1+tip+tip2);
+}
+
+//删除提示
+function removeTip(my) {
+    my.find(".tip_msg").remove();
+}
+
+//检测案例
+function ckName() {
+    var name = $.trim($("#name").val());
+    if (name.length <= 0) {
+        addTip($("#name").parent('td').next('td:last'), '案例名称不能为空');
+        return false;
+    }
+    return true;
+}
+
+//检测项目类型
+function ckType() {
+    var type = $.trim($("#type").val());
+    if (type.length <= 0) {
+        addTip($("#type").parent('td').next('td:last'), '项目类型不能为空');
+        return false;
+    }
+    return true;
+}
+
+//检测合作类型
+function ckCaseType() {
+    var case_type = $("#case_type").val();
+    if (case_type <= 0) {
+        addTip($("#case_type").parent('td').next('td:last'), '请选择案例类型');
+        return false;
+    }
+    return true;
+}
+
+//检测合作方
+function ckCooperation() {
+    var cooperation = $.trim($("#cooperation").val());
+    if (cooperation.length <= 0) {
+        addTip($("#cooperation").parent('td').next('td:last'), '合作方不能为空');
+        return false;
+    }
+    return true;
+}
+
+//检测简介图片
+function ckImage() {
+    var image = $.trim($("#image").val());
+    if (image.length <= 0) {
+        addTip($("#image_tip"), '请上传一张简介图片');
+        return false;
+    }
+    return true;
+}
+
+//检测封面图片
+function ckCover() {
+    var cover = $.trim($("#cover").val());
+    if (cover.length <= 0) {
+        addTip($("#cover_tip"), '请上传一张封面图片');
+        return false;
+    }
+    return true;
+}
+
+//检测表单
+function checkForm() {
+    if (!ckName()) return false;
+    if (!ckType()) return false;
+    if (!ckCaseType()) return false;
+    if (!ckCooperation()) return false;
+    if (!ckCover()) return false;
+    if (!ckImage()) return false;
+    var name = $.trim($("#name").val());
+    var type = $.trim($("#type").val());
+    var case_type = $("#case_type").val();
+    var is_selected = $("#is_selected").val();
+    var cooperation = $.trim($("#cooperation").val());
+    var functions = $.trim($("#functions").val());
+    var description = $.trim($("#description").val());
+    var cover = $.trim($("#cover").val());
+    var image = $.trim($("#image").val());
+    return {
+        name: name,
+        type: type,
+        case_type: case_type,
+        is_selected: is_selected,
+        cooperation: cooperation,
+        functions: functions,
+        description: description,
+        cover: cover,
+        image: image
+    };
+}
+
+//提交表单
+function updateCaseFormSubmit() {
+    if (checkForm()) {
+        $.post('<{:U("case/update")}>?id=<{$case["id"]}>', checkForm(), function(data) {
+            window.parent.updateCaseCallback(data);
+        }, 'json');
+    }
+}
+
+//删除图片
+function delete_image(filename, tips_obj, value_obj) {
+    $.post('<{:U("case/delete_image")}>', {filename: filename}, function(data) {
+        if (data.status) {
+            tips_obj.empty();
+            value_obj.val("");
+        } else {
+            $.ligerDialog.alert(data.msg, '出错了(>_<)', 'error');
+            return false;
+        }
+    }, 'json');
+}
+//]]>
+</script>
+<include file="./Public/html/footer.html" />

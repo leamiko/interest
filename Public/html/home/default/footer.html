@@ -1,0 +1,59 @@
+<div id="foot">
+    <div class="foot">
+        <div class="foot_nav">
+            <ul>
+                <volist name="navigation" id="val" key="key">
+                <li><a href="<{$val['url']}>"><{$val['name']}></a></li>
+                <if condition="$val['name'] eq '案例中心'">
+                <li><a href="<{:U('/news')}>"><{:L('_NEWS_')}></a></li>
+                </if>
+                </volist>
+            </ul>
+            <if condition="$copyright">
+            <p><{$copyright['content']}></p>
+            </if>
+        </div>
+        <div class="foot_share">
+            <a href="javascript:void(0);" onclick="share(1)"><img src="__PUBLIC__/images/home/default/wechat_s.png" width="30" height="30" /></a>
+            <a href="javascript:void(0);" onclick="share(2)"><img src="__PUBLIC__/images/home/default/weibo_s.png" width="30" height="30" /></a>
+            <a href="javascript:void(0);" onclick="share(3)"><img src="__PUBLIC__/images/home/default/qq_s.png" width="30" height="30" /></a>
+            <a href="javascript:void(0);" onclick="share(4)"><img src="__PUBLIC__/images/home/default/rr_s.png" width="30" height="30" /></a>
+            <a href="javascript:void(0);" onclick="share(5)"><img src="__PUBLIC__/images/home/default/db_s.png" width="30" height="30" /></a>
+        </div>
+        <script type="text/javascript">
+        //<![CDATA[
+        function share(num) {
+            var title = document.title;
+            var url = document.URL;
+            var siteId = '';
+            switch (parseInt(num)) {
+                case 1 :
+                    siteId = 'weixin';
+                    break;
+                case 2 :
+                    siteId = 'tsina';
+                    break;
+                case 3 :
+                    siteId = 'qzone';
+                    break;
+                case 4 :
+                    siteId = 'renren';
+                    break;
+                case 5 :
+                    siteId = 'douban';
+                    break;
+            }
+            window.open('http://www.jiathis.com/send/?webid=' + siteId + '&url=' + url + '&title=' + title);
+        }
+        //]]>
+        </script>
+    </div>
+    <if condition="$right">
+    <link href="__PUBLIC__/css/home/default/zzsc.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/js/home/default/zzsc.js"></script>
+    <div id="top"></div>
+    <input id="right_qq" type="hidden" value="<{$right['qq']}>" />
+    <input id="right_phone" type="hidden" value="<{$right['phone']}>" />
+    <input id="right_qr_code" type="hidden" value="http://<{$_SERVER['HTTP_HOST']}><{$right['qr_code']}>" />
+    </if>
+</div>

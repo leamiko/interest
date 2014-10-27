@@ -1,0 +1,204 @@
+<include file="./Public/html/header.html" />
+<div id="main">
+    <div id="main-cnt">
+        <div id="contentH" class="cnt-box wall" style="padding-left: 0px;">
+            <div class="title clearfix">
+                <div class="l title-cnt">
+                    <span class="icon icon8"></span>添加资讯
+                </div>
+            </div>
+        </div>
+        <div class="top_6">
+            <table cellpadding="10" cellspacing="10" class="tab">
+                <tr height="60px">
+                    <td align="right">标题：&nbsp;&nbsp;</td>
+                    <td><input type="text" id="title" value="<{$news['title']}>" /></td>
+                </tr>
+                <tr height="60px">
+                    <td align="right">关键词：&nbsp;&nbsp;</td>
+                    <td><input type="text" id="keywords" value="<{$news['keywords']}>" /><span style="color:#f00;display:none;">&nbsp;&nbsp;每个关键词用中文逗号分割，如："测试，demo"。关键词不能超过30个中文字符。</span></td>
+                </tr>
+                <tr height="60px">
+                    <td align="right">分类：&nbsp;&nbsp;</td>
+                    <td>
+                        <select id="category_id">
+                            <option value="0">--请选择分类--</option>
+                            <volist name="category" id="val">
+                            <option value="<{$val['id']}>" <if condition="$news['category_id'] eq $val['id']">selected</if>><{$val['name']}></option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">内容：&nbsp;&nbsp;</td>
+                    <td><textarea id="content"><{$news['content']}></textarea></td>
+                </tr>
+                <tr>
+                    <td align="right" class="l-table-edit-td">
+                        首图：&nbsp;&nbsp;
+                    </td>
+                    <td align="left" class="l-table-edit-td">
+                        <span class="btn btn-success fileinput-button" style="color:#fff;">
+                            &nbsp;&nbsp;选择图片
+                            <input id="fileupload" type="file" name="files[]" />
+                            <input id="image" type="hidden" value="" />
+                        </span>
+                        <br />
+                        <br />
+                        <div id="progress" class="progress" style="display:none;">
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="image_tip">
+                        <if condition="$news['image']">
+                        <div id="image-preview">
+                            <a href="<{$news['src']}>" target="_blank" title="点击查看原图" id="image-preview-outter">
+                                <img src="<{$news['src']}>" width="160" height="90" border="0" />
+                            </a>
+                            <a href="javascript:void(0);" onclick="delete_image('<{$news['image']}>');" id="image-preview-delete" title="删除">
+                            </a>
+                        </div>
+                        </if>
+                    </td>
+                </tr>
+                <tr height="60px">
+                    <td colspan="2" align="center"><input class="btn btn-primary" type="button" value="保存" onclick="saveNews()" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+<!--
+body{font-size:12px}.l-table-edit-td{padding:10px 20px}.l-table-edit-td input{width:130px}.l-button-submit,.l-button-test{width:80px;float:left;margin-left:10px;padding-bottom:2px}.l-verify-tip{left:230px;top:120px}.l-table-edit tr td span{color:#f30;padding-left:5px}.tipmsg{color:#f30}#image_tip{width:90%;clear:both;margin:12px auto}#image-preview{position:relative;}#image-preview-outter{display:block;}#image-preview-delete{display:block;position:absolute;top:0px;left:144px;background:url(/Public/images/delete.png) no-repeat;background-color:#fff;width:16px;height:16px;}#add_goods_button{width:100%;text-align:center;margin:12px auto}@-webkit-keyframes progress-bar-stripes{from{background-position:40px 0}to{background-position:0 0}}@keyframes progress-bar-stripes{from{background-position:40px 0}to{background-position:0 0}}.progress{height:20px;margin-bottom:20px;overflow:hidden;background-color:#f5f5f5;border-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0 1px 2px rgba(0,0,0,0.1)}.progress-bar{float:left;width:0;height:100%;font-size:12px;line-height:20px;color:#fff;text-align:center;background-color:#428bca;-webkit-box-shadow:inset 0 -1px 0 rgba(0,0,0,0.15);box-shadow:inset 0 -1px 0 rgba(0,0,0,0.15);-webkit-transition:width .6s ease;transition:width .6s ease}.progress-striped .progress-bar{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15)25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-size:40px 40px}.progress.active .progress-bar{-webkit-animation:progress-bar-stripes 2s linear infinite;animation:progress-bar-stripes 2s linear infinite}.progress-bar-success{background-color:#5cb85c}.progress-striped .progress-bar-success{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15)25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}.progress-bar-info{background-color:#5bc0de}.progress-striped .progress-bar-info{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15)25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}.progress-bar-warning{background-color:#f0ad4e}.progress-striped .progress-bar-warning{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15)25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}.progress-bar-danger{background-color:#d9534f}.progress-striped .progress-bar-danger{background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15)25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}
+-->
+</style>
+<script type="text/javascript" src="__PUBLIC__/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+CKEDITOR.disableAutoInline = true;
+var image_count = new Array();
+$(function() {
+    $("#keywords").focus(function() {
+        $(this).next().show();
+    }).blur(function() {
+        $(this).next().hide();
+    });
+    var editor = $("#content").ckeditor({
+        width         : 700,
+        height        : 300,
+        language      : 'zh-cn',
+        filebrowserUploadUrl: '<{:U("news/upload_image")}>'
+    });
+    $("#fileupload").fileupload({
+        maxNumberOfFiles: 1,
+        acceptFileTypes: /(\.|\/)(jpe?g|png)$/i,
+        maxFileSize: 2097152,
+        minFileSize: 1,
+        url: '<{:U("news/upload")}>',
+        dataType: 'json',
+        send: function (e, data) {
+            $("#progress").show();
+        },
+        done: function (e, data) {
+            if (data.result.status) {
+                $("#progress").hide();
+                $("#image_tip").html("<div id='image-preview'>"+
+                                        "<a href='"+data.result.src+"' target='_blank' title='点击查看原图' id='image-preview-outter'>"+
+                                            "<img src='"+data.result.src+"' width='160' height='90' border='0' />"+
+                                        "</a>"+
+                                        "<a href='javascript:void(0);' onclick=\"delete_image(\'"+data.result.filename+"\');\" id='image-preview-delete' title='删除'>"+
+                                        "</a>"+
+                                    "</div>");
+                $("#image").val(data.result.filename);
+            } else {
+                $("#image_tip").html(data.result.msg);
+            }
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css('width', progress + '%');
+        }
+    });
+});
+
+//检测标题
+function ckTitle() {
+    var title = $.trim($("#title").val());
+    if (title.length <= 0) {
+        $.ligerDialog.alert('资讯标题不能为空', '温馨提示', 'warn');
+        return false;
+    }
+    return true;
+}
+
+//检测关键词
+function ckKeywords() {
+    var keywords = $.trim($("#keywords").val());
+    if (keywords.length > 30 ) {
+        $.ligerDialog.alert('关键词不能超过30个中文字符', '温馨提示', 'warn');
+        return false;
+    }
+    return true;
+}
+
+//检测分类
+function ckCategory() {
+    var category_id = $("#category_id").val();
+    if (parseInt(category_id) == 0) {
+        $.ligerDialog.alert('请选择一个资讯分类', '温馨提示', 'warn');
+        return false;
+    }
+    return true;
+}
+
+//检测内容
+function ckContent() {
+    var content = $.trim($("#content").val());
+    if (content.length <= 0) {
+        $.ligerDialog.alert('新闻内容不能为空', '温馨提示', 'warn');
+        return false;
+    }
+    return true;
+}
+
+//保存资讯
+function saveNews() {
+    if (!ckTitle()) return false;
+    if (!ckKeywords) return false;
+    if (!ckCategory()) return false;
+    if (!ckContent()) return false;
+    var title = $.trim($("#title").val());
+    var keywords = $.trim($("#keywords").val());
+    var category_id = $("#category_id").val();
+    var content = $.trim($("#content").val());
+    var image = $.trim($("#image").val());
+    $.post("<{:U('news/update')}>?id=<{$news['id']}>", {title: title, keywords: keywords, category_id: category_id, content: content, image: image}, function(data) {
+        if (data.status) {
+            $.ligerDialog.alert(data.msg, '成功了(^_^)', 'success');
+            window.location.reload(true);
+        } else {
+            $.ligerDialog.alert(data.msg, '出错了(>_<)', 'error');
+            return false;
+        }
+    }, 'json');
+}
+
+//删除图片
+function delete_image(filename) {
+    $.post('<{:U("news/delete_image")}>', {filename: filename}, function(data) {
+        if (data.status) {
+            $("#image_tip").empty();
+            $("#image").val("");
+        } else {
+            $.ligerDialog.alert(data.msg, '出错了(>_<)', 'error');
+            return false;
+        }
+    }, 'json');
+}
+//]]>
+</script>
+<include file="./Public/html/footer.html" />

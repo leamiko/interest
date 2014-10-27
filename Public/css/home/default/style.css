@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin:0px;padding:0px;}
+a{ text-decoration:none; color:black;}
+li{ list-style-type:none;}
+img{display:block;border:0px;}
+body{ font-family:"微软雅黑"; font-size:12px;}
+#head{ height:128px;background:#000;width:100%;}
+.head{width:980px; margin:0 auto; overflow:hidden;zoom:1;}
+.l_fr{ float:left;}
+.r_fr{ float:right;}
+.logo{ width:width:324px;}
+.nav{ margin-left:60px; display:inline;}
+.nav ul{ overflow:hidden;zoom:1;margin-top:50px;}
+.nav ul li{ float:left; margin-left:20px; height:30px;}
+.nav ul li a{ color:#999;font-size:16px; line-height:30px; display:block;}
+.nav ul li .li_sel{color:#FC0;}
+.nav ul li a:hover{ color:#FC0; display:block;}
+.laug{ height:30px; line-height:30px; color:#fff; background:#919294;padding:0px 10px;margin-top:50px;margin-left:40px; display:inline;}
+.laug a:hover{ color:#fff;}
+/*banner*/
+#banner{width:100%;}
+#banner img{ width:100%;}
+/*My product*/
+#my_pro{width:100%;}
+.my_pro{ width:980px; margin:0 auto;padding-top:20px;padding-bottom:50px;}
+.my_pro ul{ overflow:hidden;zoom:1;}
+.my_pro ul li{ float:left;width:240px;margin-left:69px; display:inline; text-align:center;}
+.my_pro ul li p{ margin:5px 0px; line-height:22px; text-align:left;}
+.my_pro ul li span{height:30px;}
+.my_pro ul li span a{color:#09F; line-height:30px;}
+/*case*/
+#case{width:100%; background:#e2e7ed;}
+.case{width:980px; margin:0 auto;padding:30px 0px;}
+.case h2{ font-size:20px; color:#666; font-weight:600;margin-bottom:30px;}
+.case_icon{ float:right; width:31px; height:30px; background:url(../../../images/home/default/case_icon.png) no-repeat;}
+.case_icon a{ display:block; width:31px; height:30px;}
+/*project*/
+#project{width:100%; background:#fff; clear:both;}
+.project{width:980px; margin:0 auto;padding:30px 0px;}
+.project h2{ font-size:20px; color:#666; font-weight:600;margin-bottom:30px;}
+.project span{ float:right; width:31px; height:30px; background:url(../../../images/home/default/pro_icon.png) no-repeat;}
+.project span a{ display:block; width:31px; height:30px;}
+/*contact*/
+#contact{width:100%; background:#e2e7ed;}
+.contact{width:980px; margin:0 auto;padding:30px 0px;}
+.contact h2{ font-size:20px; color:#666; font-weight:600;margin-bottom:30px;}
+.contact span{ float:right; width:31px; height:30px; background:url(../../../images/home/default/cont_icon.png) no-repeat;}
+.contact span a{ display:block; width:31px; height:30px;}
+.contact ul{ overflow:hidden;zoom:1; margin-left:-30px;}
+.contact ul li{ float:left; margin-left:30px; display:inline;  font-size:14px; color:#999;}
+/*footer css*/
+#foot{width:100%; background:#31333e;}
+.foot{width:980px;margin:0 auto;padding:30px 0px; overflow:hidden;zoom:1;}
+.foot_nav{ float:left;}
+.foot_nav ul{ overflow:hidden;zoom:1;margin-left:-20px;}
+.foot_nav ul li{ float:left; height:30px;margin-left:20px; display:inline;}
+.foot_nav ul li a{ font-size:14px; color:#999; line-height:30px;}
+.foot_nav ul li a:hover{ color:#F90;}
+.foot_nav p{ height:30px; line-height:30px; color:#999;}
+.foot_share{float:right;width:200px;height:30px;}
+.foot_share a{display:inline-block;margin:0px 3px;}
+embed{display:none;}

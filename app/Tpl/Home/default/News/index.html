@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <if condition="isset($tdk['title']) and $tdk['title']">
+        <title><{$tdk['title']}></title>
+        <else />
+        <title>最新资讯 | 广州英趣信息科技有限公司</title>
+        </if>
+        <if condition="isset($tdk['description']) and $tdk['description']">
+        <meta name="description" content="<{$tdk['description']}>" />
+        </if>
+        <if condition="isset($tdk['keywords']) and $tdk['keywords']">
+        <meta name="keywords" content="<{$tdk['keywords']}>" />
+        </if>
+        <link href="__PUBLIC__/css/home/default/style.css" rel="stylesheet" type="text/css" />
+        <link href="__PUBLIC__/css/home/default/page.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body data-spy="scroll" class="home">
+    <!--head start-->
+    <include file="./Public/html/home/default/nav.html" />
+    <!--head end-->
+    <!--banner start-->
+    <div id="news_banner">
+       <div class="news_img"><img src="__PUBLIC__/images/home/default/news.jpg" width="980" height="142"></div>
+       <div class="news_nav">
+            <ul>
+                <volist name="category" id="val" key="key">
+                <li <if condition="$val['id'] eq $id">class="n_sel"</if>><a href="<{:U('news/index?category=' . $val['id'])}>"><{$val['name']}></a></li>
+                </volist> 
+            </ul>
+       </div>
+    </div>
+    <!--banner end-->
+    <!--coopmain start-->
+    <div id="main">
+        <div class="n_main">
+            <volist name="newsLists" id="val">
+            <div class="n_list">
+                <h2><{$val['title']}></h2>
+                <div class="n_list_info">
+                    <if condition="$val['image']">
+                    <p><a href="<{:U('news/detail', array('id' => $val['id']))}>"><img src="<{$val['image']}>" width="429" height="281"></a></p>
+                    </if>
+                    <h3><{$val['title']}></h3>
+                    <span><{$val['add_time']|date="Y-m-d",###}></span>
+                    <{$val['content']|strip_tags|msubstr=0, 60, 'utf-8', false}>......
+                    <p><a href="<{:U('news/detail', array('id' => $val['id']))}>">阅读全文&gt;&gt;</a></p>
+                </div>
+            </div>
+            </volist>
+            <if condition="$count gt 1">
+            <div class="page"><{$page}></div>
+            </if>
+        </div>
+    </div>
+    <!--coopmain end-->
+    <!--foot start-->
+    <include file="./Public/html/home/default/footer.html" />
+    <!--foot end-->
+    </body>
+</html>

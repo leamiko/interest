@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <if condition="isset($tdk['title']) and $tdk['title']">
+        <title><{$tdk['title']}></title>
+        <else />
+        <title>服务中心 | 广州英趣信息科技有限公司</title>
+        </if>
+        <if condition="isset($tdk['description']) and $tdk['description']">
+        <meta name="description" content="<{$tdk['description']}>" />
+        </if>
+        <if condition="isset($tdk['keywords']) and $tdk['keywords']">
+        <meta name="keywords" content="<{$tdk['keywords']}>" />
+        </if>
+        <link href="__PUBLIC__/css/home/default/style.css" rel="stylesheet" type="text/css" />
+        <link href="__PUBLIC__/css/home/default/page.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body data-spy="scroll" class="home">
+        <!--head start-->
+        <include file="./Public/html/home/default/nav.html" />
+        <!--head end-->
+        <!--coopmain start-->
+        <div id="main">
+            <div class="page_service">
+                <volist name="service" id="val" key="key">
+                <div class="<if condition="($key%2) eq 1">s_one<else />s_two</if>">
+                    <div class="<if condition="($key%2) eq 1">s_one_info<else />s_two_info</if>">
+                        <div class="<if condition="($key%2) eq 1">s_one_text<else />s_two_text</if>">
+                            <img src="<{$val['image']}>" width="292" height="242">
+                            <h2><{$val['title']}></h2>
+                            <p><{$val['description']}></p>
+                            <span><a href="<{:U('/cooperation')}>?service=<{$val['id']}>">我要申请</a></span>
+                        </div>
+                    </div>
+                </div>
+                </volist>
+            </div>
+        </div>
+        <!--coopmain end-->
+        <!--foot start-->
+        <include file="./Public/html/home/default/footer.html" />
+        <!--foot end-->
+    </body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <if condition="isset($tdk['title']) and $tdk['title']">
+        <title><{$tdk['title']}></title>
+        <else />
+        <title>申请合作 | 广州英趣信息科技有限公司</title>
+        </if>
+        <if condition="isset($tdk['description']) and $tdk['description']">
+        <meta name="description" content="<{$tdk['description']}>" />
+        </if>
+        <if condition="isset($tdk['keywords']) and $tdk['keywords']">
+        <meta name="keywords" content="<{$tdk['keywords']}>" />
+        </if>
+        <link href="__PUBLIC__/css/home/default/style.css" rel="stylesheet" type="text/css" />
+        <link href="__PUBLIC__/css/home/default/page.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body data-spy="scroll" class="home">
+        <!--head start-->
+        <include file="./Public/html/home/default/nav.html" />
+        <!--head end-->
+        <!--banner start-->
+        <div id="coop_banner">
+           <div class="coop_img"><img src="__PUBLIC__/images/home/default/coop.jpg" width="980" height="244"></div>
+        </div>
+        <!--banner end-->
+        <!--coopmain start-->
+        <div id="main">
+            <div class="coopmain">
+                <h2>请填写以下信息</h2>
+                <div class="coop_info">
+                    <if condition="$to_customer">
+                    <h3><{$to_customer['greeting']}></h3>
+                    <p><{$to_customer['content']}></p>
+                    </if>
+                    <div class="l_commd">
+                        <form action="__URL__/apply" method="post">
+                            <ul>
+                                <li><label>联系人：</label><input name="contact" type="text"></li>
+                                <li><label>联系电话：</label><input name="phone" type="text"></li>
+                                <li><label>E-mail：</label><input name="email" type="text"></li>
+                                <li><label>联系地址：</label><input name="address" type="text"></li>
+                                <li>
+                                <label>业务合作：</label>
+                                <select name="service">
+                                    <option value="0"<if condition="$_service eq 0"> selected</if>>--请选择--</option>
+                                    <volist name="service" id="val">
+                                    <option value="<{$val['id']}>"<if condition="$_service eq $val['id']"> selected</if>><{$val['title']}></option>
+                                    </volist>
+                                </select>
+                                </li>
+                                <li><label>内容：</label><textarea name="content"></textarea></li>
+                                <li><input type="submit" value="提交" class="sbt"><input type="reset" value="重置" class="l_sbt"></li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--coopmain end-->
+        <!--foot start-->
+        <include file="./Public/html/home/default/footer.html" />
+        <!--foot end-->
+    </body>
+</html>

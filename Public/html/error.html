@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>跳转提示</title>
+        <style type="text/css">
+        <!--
+        body{_text-align:center;font-family:微软雅黑;}
+		.message{border:1px solid #E5E5E5;overflow:hidden;background:#fff;margin:100px auto auto auto;border-radius:10px;box-shadow:0px 4px 10px -1px rgba(200, 200, 200, 0.7);width:450px;}
+        .top{width:auto;line-height:30px;padding:5px 10px;background:#eeeeee;text-align:left;color:rgb(102, 102, 102);}
+		.con{width:auto;line-height:20px;padding:10px;text-align:center;min-height:60px;color:sienna}
+        .end{width:auto;line-height:30px;padding:5px 10px;font-size:12px;text-align:right;background:#eeeeee}
+		.end a{color:#036;}
+		-->
+        </style>
+    </head>
+    
+    <body>
+        <div class="message">
+            <div class="top">出错了(>_<)</div>
+            <div class="con"><{$error}></div>
+            <div class="end">
+                <span id="wait"><{$waitSecond}></span>&nbsp;秒后&nbsp;&nbsp;<a id="href" href="<{$jumpUrl}>">跳转</a>
+            </div>
+        </div>
+		<script type="text/javascript">
+		//<![CDATA[
+        (function(){
+        var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+        })();
+		//]]>
+        </script>
+    </body>
+</html>

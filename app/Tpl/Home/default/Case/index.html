@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <if condition="isset($tdk['title']) and $tdk['title']">
+        <title><{$tdk['title']}></title>
+        <else />
+        <title>案例中心 | 广州英趣信息科技有限公司</title>
+        </if>
+        <if condition="isset($tdk['description']) and $tdk['description']">
+        <meta name="description" content="<{$tdk['description']}>" />
+        </if>
+        <if condition="isset($tdk['keywords']) and $tdk['keywords']">
+        <meta name="keywords" content="<{$tdk['keywords']}>" />
+        </if>
+        <link href="__PUBLIC__/css/home/default/style.css" rel="stylesheet" type="text/css" />
+        <link href="__PUBLIC__/css/home/default/page.css" rel="stylesheet" type="text/css" />
+        <link href="__PUBLIC__/lib/waterfall-master/css/reset.css" rel="stylesheet" type="text/css" />
+        <link href="__PUBLIC__/lib/waterfall-master/css/waterfall.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.easing.1.3.js"></script>
+    </head>
+
+    <body class="home">
+        <!--head start-->
+        <include file="./Public/html/home/default/nav.html" />
+        <!--head end-->
+        <!--banner start-->
+        <div id="news_banner">
+           <div class="news_img"><img src="__PUBLIC__/images/home/default/case.jpg" width="980" height="142"></div>
+           <div class="news_nav">
+                <ul>
+                    <volist name="case_type" id="val" key="key">
+                    <li <if condition="$val['id'] eq $id">class="n_sel"</if>><a href="<{:U('case/index?id=' . $val['id'])}>"><{$val['name']}></a></li>
+                    </volist>
+                </ul>
+           </div>
+        </div>
+        <!--banner end-->
+        <!--coopmain start-->
+        <div id="main">
+            <div class="n_main" style="background:#efefea;width:1000px;min-height:600px;margin:0px auto;padding:20px 0px" id="container">
+            </div>
+        </div>
+        <!--coopmain end-->
+        <!--foot start-->
+        <include file="./Public/html/home/default/footer.html" />
+        <!--foot end-->
+        <style type="text/css">
+        .item-title{width:280px;height:54px;}
+        .item-title h3{height:30px;line-height:30px;}
+        .item-title p{height:24px;line-height:24px;}
+        .item-cover h3{overflow:hidden;position:absolute;top:10px;left:-120px;height:30px; line-height:30px; background:#F90;color:#000; width:250px;opacity: 0;font-size: 16px;padding-left:10px;}
+        .item-cover .tag{position: absolute;top:50px;left:400px;width:200px;height: 30px;padding:2px 5px;font-size: 14px;line-height:30px;color:#fff;opacity: 0;filter:alpha(opacity=0);}
+        .item-cover .download i{ font-style:normal; color:#F90; font-size:14px; display:block;height:20px; line-height:20px; text-align:right;}
+        .item-cover .download{position: absolute;bottom:-80px;right:10px;width:242px;}
+        </style>
+        <script type="text/javascript" src="__PUBLIC__/lib/waterfall-master/js/libs/handlebars/handlebars.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/lib/waterfall-master/js/waterfall.min.js"></script>
+        <script type="text/x-handlebars-template" id="waterfall-tpl">
+        {{#result}}
+            <a class="item" href="{{image}}" rel="sexylightbox[]" title="{{name}}" name="{{description}}">
+                <div class="item-title">
+                    <h3>{{name}}</h3>
+                    <p>{{type}}</p>
+                </div>
+                <img src="{{cover}}" width="{{width}}" height="{{height}}" />
+                <div class="item-cover" rel="{{top}}" style="width:280px;height:{{height}}px;position:absolute;top:{{top}}px;">
+                    <h3>{{name}}</h3>
+                    <p class="tag">{{cooperation}}</p>
+                    <p class="download">
+                        <i>{{tags_1}}</i>
+                        <i>{{tags_2}}</i>
+                        <i>{{tags_3}}</i>
+                    </p>
+                </div>
+            </a>
+        {{/result}}
+        </script>
+        <link href="__PUBLIC__/lib/sexy_lightbox/sexylightbox.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/lib/sexy_lightbox/sexylightbox.v2.3.jquery.js"></script>
+        <script type="text/javascript">
+        $(function() {
+            $('#container').waterfall({
+                itemCls: 'item',
+                colWidth: 300,
+                gutterWidth: 15,
+                maxCol: 3,
+                gutterHeight: 30,
+                maxPage: <{$maxPage}>,
+                checkImagesLoaded: true,
+                path: function(page) {
+                    return '<{:U("case/lists?id=$id")}>?page=' + page;
+                },
+                callbacks: {
+                    loadingFinished: function($loading, isBeyondMaxPage) {
+                      SexyLightbox.initialize({color:'white', dir: '__PUBLIC__/lib/sexy_lightbox/sexyimages', withWaterfall: 1});
+                      if (!isBeyondMaxPage) {
+                          $loading.fadeOut();
+                      } else {
+                          $loading.remove();
+                      }
+                      $('.item').mouseenter(function(e) {
+                          var self = $(this),
+                              cover = self.find('.item-cover'),
+                              tit = self.find('.item-cover').find('h3'),
+                              tag = self.find('.tag'),
+                              download = self.find('.download');
+                          cover.css({"background-color":"rgba(0, 0, 0, 0.7)"});
+                          tit.animate({left:'10px',opacity:'1'});
+                          cover.animate({top:'69px'}, 200);
+                          tag.animate({left:'10px',opacity:'1'});
+                          download.delay(400).animate({bottom:'50px'});
+                          self.find('.plat2').delay(500).animate({bottom:'-5px'});
+                          self.find('.plat3').delay(600).animate({bottom:'-5px'});
+                          self.find('.plat4').delay(700).animate({bottom:'-5px'});
+                      }).mouseleave(function(e) {
+                          var self = $(this),
+                              cover = self.find('.item-cover'),
+                              tit = self.find('.item-cover').find('h3'),
+                              tag = self.find('.tag'),
+                              download = self.find('.download');
+                         cover.stop().css({"top": cover.attr("rel") + 'px'});
+                         tit.stop().css({left:'-120px',opacity:'0'});
+                         tag.stop().css({left:'400px',opacity:'0'});
+                         download.stop(true).css({bottom:'-80px'});
+                         self.find('.plat2,.plat3,.plat4').stop(true).css({bottom:'-60px'});
+                      });
+                    }
+                }
+            });
+        });
+        </script>
+    </body>
+</html>
