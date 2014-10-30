@@ -45,9 +45,8 @@
 .n_list_detail{width:800px; margin:0 auto;padding-top:100px;}
 .n_list_detail img{ margin:0 auto;}
 .n_list_detail h3{ text-align:center; height:30px; line-height:30px;margin-top:10px; font-size:14px;}
-.n_list_detail span{ display:block; text-align:center;}
 .n_list_detail p{ line-height:24px;}
-.n_list_detail p a{ font-size:16px; font-weight:600; color:#000;}
+.n_list_detail p a{ font-size:16px; font-weight:600; color:#f00;}
 /*page_service*/
 .page_service{width:980px; margin:0 auto; background:#f4f4f1;}
 .s_one,.s_two{width:980px; position:relative; height:380px;}
