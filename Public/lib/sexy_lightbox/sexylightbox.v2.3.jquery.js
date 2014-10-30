@@ -600,7 +600,7 @@ jQuery.bind = function(object, method){
       // Resizing large images
       var maxx = $(window).width() - 100;
       var maxy = $(window).height() - 100;
-
+      
       if (x > maxx)
       {
         y = y * (maxx / x);
@@ -621,6 +621,12 @@ jQuery.bind = function(object, method){
           x = maxx;
         }
       }
+      // Add by Zonkee deal with picture's width large than 1380 start
+      if (x > 1380) {
+            y = y * (1380 / x);
+            x = 1380;
+      }
+      // Add by Zonkee deal with picture's width large than 1380 end
       // End Resizing
       return {x: parseInt(x), y: parseInt(y)};
     },
