@@ -34,6 +34,10 @@ class HomeAction extends Action {
                 'name' => L('_CASE_')
             ),
             array(
+                'url' => "http://{$_SERVER['HTTP_HOST']}/news",
+                'name' => L('_NEWS_')
+            ),
+            array(
                 'url' => "http://{$_SERVER['HTTP_HOST']}/cooperation",
                 'name' => L('_COOPERATION_')
             ),

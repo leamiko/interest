@@ -6,5 +6,5 @@ return array(
     '_CASE_' => '案例中心',
     '_COOPERATION_' => '申请合作',
     '_ABOUT_US_' => '关于我们',
-    '_NEWS_' => '最新资讯'
+    '_NEWS_' => '公司动态'
 );

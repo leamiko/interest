@@ -4,9 +4,6 @@
             <ul>
                 <volist name="navigation" id="val" key="key">
                 <li><a href="<{$val['url']}>"><{$val['name']}></a></li>
-                <if condition="($val['name'] eq '案例中心') OR ($val['name'] eq 'Case')">
-                <li><a href="<{:U('/news')}>"><{:L('_NEWS_')}></a></li>
-                </if>
                 </volist>
             </ul>
             <if condition="$copyright">

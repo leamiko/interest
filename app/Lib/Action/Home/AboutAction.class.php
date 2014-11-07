@@ -16,7 +16,7 @@ class AboutAction extends HomeAction {
         // 渲染TDK
         $this->tdk(6);
         // 导航高亮
-        $this->assign('highline', 5);
+        $this->assign('highline', 6);
         // 渲染导航条
         $this->navigation();
         // 渲染右边悬浮框

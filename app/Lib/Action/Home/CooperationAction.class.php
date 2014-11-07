@@ -32,7 +32,7 @@ class CooperationAction extends HomeAction {
         // 渲染TDK
         $this->tdk(5);
         // 导航高亮
-        $this->assign('highline', 4);
+        $this->assign('highline', 5);
         // 渲染导航条
         $this->navigation();
         // 渲染右边悬浮框

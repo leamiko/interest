@@ -10,7 +10,7 @@ body{ font-family:"微软雅黑"; font-size:12px;}
 .l_fr{ float:left;}
 .r_fr{ float:right;}
 .logo{ width:width:324px;}
-.nav{ margin-left:60px; display:inline;}
+.nav{ margin-left:20px; display:inline;}
 .nav ul{ overflow:hidden;zoom:1;margin-top:50px;}
 .nav ul li{ float:left; margin-left:20px; height:30px;}
 .nav ul li a{ color:#999;font-size:16px; line-height:30px; display:block;}

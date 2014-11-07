@@ -46,6 +46,8 @@ class NewsAction extends HomeAction {
     public function index() {
         // 渲染TDK
         $this->tdk(4);
+        // 导航高亮
+        $this->assign('highline', 4);
         // 渲染导航条
         $this->navigation();
         // 渲染右边悬浮框
